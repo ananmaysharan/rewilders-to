@@ -44,7 +44,7 @@
     map.on('load', async () => {
 
         // Add an image to use as a custom marker
-        const image = await map.loadImage('marker2.png');
+        const image = await map.loadImage('marker.png');
         map.addImage('custom-marker', image.data);
 
         // Add a GeoJSON source
@@ -77,6 +77,9 @@
             const coordinates = e.features[0].geometry.coordinates.slice();
             const name = e.features[0].properties.name;
             const description = e.features[0].properties.description;
+            const image_url = e.features[0].properties.image;
+
+            console.log(image_url)
 
             // Ensure the popup opens at the correct location even when the map is zoomed out
             while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
@@ -86,7 +89,7 @@
             // Create the popup
             new maplibregl.Popup()
                 .setLngLat(coordinates)
-                .setHTML(`<strong>${name}</strong><p>${description}</p>`)
+                .setHTML(`<strong>${name}</strong><p>${description}</p><img src=${image_url} alt='image' style='max-width: 100%;'>`)
                 .addTo(map);
         });
 
