@@ -1,0 +1,18 @@
+{
+"type": "FeatureCollection",
+"name": "rewilders",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "name": "Pollinator Pocket", "description": "Northwest Corner of Clinton and Bloor"}, "geometry": { "type": "Point", "coordinates": [ -79.4172618, 43.6639246, 0.0 ] } },
+{ "type": "Feature", "properties": { "name": "Manning Boulevard Planter", "description": "Side PAT Central Parking Lot on West side of Manning Ave."}, "geometry": { "type": "Point", "coordinates": [ -79.4159744, 43.6635909, 0.0 ] } },
+{ "type": "Feature", "properties": { "name": "Green P Pollinator Garden", "description": "Across from Palmerston Library on east side of Palmerston Ave."}, "geometry": { "type": "Point", "coordinates": [ -79.4137879, 43.6651351, 0.0 ] } },
+{ "type": "Feature", "properties": { "name": "Lepidoptera Lane", "description": "Run full length of Giuseppe Rauti Lane"}, "geometry": { "type": "Point", "coordinates": [ -79.414933, 43.6629131, 0.0 ] } },
+{ "type": "Feature", "properties": { "name": "Euclid Twin Bed #1", "description": "On west side of Euclid Ave."}, "geometry": { "type": "Point", "coordinates": [ -79.4140574, 43.6621786, 0.0 ] } },
+{ "type": "Feature", "properties": { "name": "Euclid Twin Bed #2", "description": "On west side of Euclid Ave"}, "geometry": { "type": "Point", "coordinates": [ -79.4140091, 43.6620331, 0.0 ] } },
+{ "type": "Feature", "properties": { "name": "Central Tech Pollinator Garden", "description": ""}, "geometry": { "type": "Point", "coordinates": [ -79.4099342, 43.6633164, 0.0 ] } },
+{ "type": "Feature", "properties": { "name": "Harbord and Bathurst Garden", "description": "North east corner of Harbord and Bathurst"}, "geometry": { "type": "Point", "coordinates": [ -79.4096018, 43.6616303, 0.0 ] } },
+{ "type": "Feature", "properties": { "name": "Healey Willan Mini Garden", "description": "Located beside the Euclid entrance to the park"}, "geometry": { "type": "Point", "coordinates": [ -79.412962, 43.6595446, 0.0 ] } },
+{ "type": "Feature", "properties": { "name": "Children's Learning Gardens", "description": "Located in the Northwest corner of the park"}, "geometry": { "type": "Point", "coordinates": [ -79.4134953, 43.6594163, 0.0 ] } },
+{ "type": "Feature", "properties": { "name": "Harbord Collegiate Pollinator Garden", "description": ""}, "geometry": { "type": "Point", "coordinates": [ -79.414562, 43.6606414, 0.0 ] } }
+]
+}

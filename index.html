@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>RewildersTO</title>
+    <script type="text/javascript" src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+    <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    <style>
+        body { margin: 0; padding: 0; }
+        html, body, #map { height: 100%; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+<script>
+
+
+    const source = 'https://tiles.openfreemap.org/styles/bright';
+
+    var map = new maplibregl.Map({
+        container: 'map', // container id
+        style: './rewilders-style.json',
+		center: [-79.414, 43.662], 
+		zoom: 15.5, 
+		minZoom: 15,
+		bearing: -17,
+        maxZoom: 17
+    });
+
+    let rewildersGeoJSON;
+
+    fetch("rewilders.geojson")
+    .then(response => response.json())
+    .then(json => {
+        rewildersGeoJSON = json;
+        console.log(rewildersGeoJSON); // Now `data` contains the JSON object
+    })
+    .catch(error => console.error('Error fetching JSON:', error));
+
+    map.on('load', async () => {
+
+        // Add an image to use as a custom marker
+        const image = await map.loadImage('marker2.png');
+        map.addImage('custom-marker', image.data);
+
+        // Add a GeoJSON source
+        map.addSource('gardens', {
+            'type': 'geojson',
+            'data': rewildersGeoJSON
+        });
+
+        // Add a symbol layer
+        map.addLayer({
+            'id': 'gardens',
+            'type': 'symbol',
+            'source': 'gardens',
+            'layout': {
+                'icon-image': 'custom-marker',
+                'icon-overlap': 'cooperative',
+                'icon-size': [
+            'interpolate', 
+            ['linear'], 
+            ['zoom'],
+            15, 0.5,   // At zoom level 10, icon size will be 1
+            17, 0.7    // At zoom level 15, icon size will be 2
+        ]
+            }
+        });
+
+        // Create a popup on click
+        map.on('click', 'gardens', (e) => {
+            // Get the feature's properties
+            const coordinates = e.features[0].geometry.coordinates.slice();
+            const name = e.features[0].properties.name;
+            const description = e.features[0].properties.description;
+
+            // Ensure the popup opens at the correct location even when the map is zoomed out
+            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            }
+
+            // Create the popup
+            new maplibregl.Popup()
+                .setLngLat(coordinates)
+                .setHTML(`<strong>${name}</strong><p>${description}</p>`)
+                .addTo(map);
+        });
+
+        // Change the cursor to a pointer when hovering over the gardens layer
+        map.on('mouseenter', 'gardens', () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+
+        // Change the cursor back when no longer hovering over the gardens layer
+        map.on('mouseleave', 'gardens', () => {
+            map.getCanvas().style.cursor = '';
+        });
+    });
+</script>
+    
+</body>
+</html>
